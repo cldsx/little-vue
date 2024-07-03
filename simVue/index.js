@@ -18,7 +18,6 @@ class Vue {
                     return data[key]
                 },
                 set(newVal) {
-                    debugger
                     if (newVal === data[key]) {
                         return
                     }
@@ -30,7 +29,46 @@ class Vue {
 }
 
 class Observer {
-    constructor(value) {
-        debugger
+    constructor(data) {
+        this.walk(data)
+    }
+    walk(data) {
+        if (!data || typeof data !== 'object') {
+            return
+        }
+        // 2. 遍历data对象的所有属性
+        Object.keys(data).forEach(key => {
+            this.defineReactive(data, key, data[key])
+        })
+
+    }
+    defineReactive(obj, key, val) {
+        // data数据 count 100
+        console.log(obj, key, val)
+        let that = this
+        // 负责收集依赖，并发送通知
+        let dep = new Dep()
+        this.walk(val)
+        Object.defineProperty()
+
+    }
+}
+
+class Dep {
+    constructor() {
+        // 存储所有的观察者
+        this.subs = []
+    }
+    // 添加观察者
+    addSub(sub) {
+        if (sub && sub.update) {
+            this.subs.push(sub)
+        }
+    }
+    // 发送通知
+    notify() {
+        this.subs.forEach(sub => {
+            sub.update()
+        })
     }
 }
