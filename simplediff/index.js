@@ -4,7 +4,6 @@ const diff = (newNode, oldNode, key) => {
     const add = []
     const remove = []
     const replace = []
-
     let n1 = 0
     let n2 = 0
     // 循环判断 如果 n1 < 新节点的长度 或者 n2 小于旧节点的长度，我们就开始循环
